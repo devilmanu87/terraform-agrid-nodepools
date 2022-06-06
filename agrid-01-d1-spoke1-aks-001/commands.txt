@@ -1,0 +1,54 @@
+Step1:
+set ARM_SUBSCRIPTION_ID="a786eb34-3c9e-4875-a35b-d91487d59d5c"
+set ARM_CLIENT_ID="f9fc4ebb-0b04-4820-8f04-f6f9f590e054"
+set ARM_CLIENT_SECRET="ABbK**************************"
+set ARM_TENANT_ID="f7d9f3f1-3841-4bfc-9cd4-c0e1964b5f86"
+
+or
+
+Step(optional):
+# Login to Azure
+az login --service-principal --username http://agrid-cpe-d1-aks-rw-cicd-spn-01 --password ABbK-***************** --tenant f7d9f3f1-3841-4bfc-9cd4-c0e1964b5f86
+
+# Use the command below to set to the correct subscription
+az account set --subscription "agrid-01-d1-hub-sub-001"
+
+# Check if we are logged into to correct subscription
+az account show --query name -o tsv
+
+Step2:
+# Terraform Version
+terraform version
+
+# List Terraform workspace
+terraform workspace list
+
+terraform workspace new agrid-01-d1-utility-aks-001
+
+# Set Terraform workspace
+terraform workspace select agrid-01-d1-utility-aks-001
+
+# 
+terraform workspace show
+
+# Terraform fmt
+terraform fmt -diff -recursive
+
+# Terraform validate
+terraform validate 
+
+# Terraform Init
+terraform init -backend-config access_key="3IUi49LYqIPLHSzMEuGJsXLDR2mK6FaO81klg0INQec68YaWAzWqspltuoiF4UkyasF5cU59hLsbiDXtzcwgYA=="
+# -upgrade
+# -reconfigure
+
+# Tereraform Plan
+terraform plan -var-file="./agrid-01-d1-utility-aks-001/agrid-01-d1-utility-aks-001.tfvars" 
+
+terraform apply -var-file="./agrid-01-d1-utility-aks-001/agrid-01-d1-utility-aks-001.tfvars" 
+
+terraform output
+
+#####terraform destroy -var-file="./agrid-01-d1-utility-aks-001\agrid-01-d1-utility-aks-001.tfvars"   -auto-approve
+
+terraform state list
